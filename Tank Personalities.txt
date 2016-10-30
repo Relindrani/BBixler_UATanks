@@ -1,0 +1,9 @@
+Tank Personalities:
+
+All Talk - Will continue to chase the player until its health is under 50%, then it will try to flee a certain distance away and recover.
+
+Guard - Will patrol its set waypoints, and if the player enters its hearing radius, it will rotate towards the player and look for it. If it sees the player within its field of view, it will chase the player. if the player leaves the hearing range, the tank will go back to patroling
+
+PatrolAvoid - Will patrol its set waypoints and avoid any obstacles and flee from the player if the player gets too close
+
+Flee - This tank will always flee from the player, no matter where the player is
