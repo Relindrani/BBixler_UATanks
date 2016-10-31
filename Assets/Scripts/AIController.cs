@@ -47,6 +47,7 @@ public class AIController : MonoBehaviour {
     void Start() {
         if (data == null) data = gameObject.GetComponent<TankData>();
         if (motor == null) motor = gameObject.GetComponent<TankMotor>();
+        target = GameObject.FindGameObjectWithTag("Player").transform;//set initial target to player for personalities that require it
         nextFireTime = Time.time;
         //set default behaviors
         if (personality == Personality.AllTalk) aiState = AIStates.ChaseAndFire;

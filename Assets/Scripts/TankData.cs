@@ -4,7 +4,6 @@ using System.Collections;
 public class TankData : MonoBehaviour {
 
     public float moveSpeed = 8.0f;//meters per second
-    public float maxSpeed = 8.0f;//maximum speed for tank
     public float backwardsSpeed = 3.0f;//meters per second
     public float turnSpeed = 180.0f;//degrees per second
 

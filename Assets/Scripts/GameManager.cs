@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour {
 
     public static GameManager instance;
 
     public TankMotor player;
-    public GameObject[] enemies;
+    public GameObject playerPrefab;
+    public List<GameObject> enemies;
     public int remainingEnemies;
 
     public GameObject RemainingEnemiesGUI;
@@ -18,9 +20,28 @@ public class GameManager : MonoBehaviour {
 
     private bool done = false;
 
-	void Start() {
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        remainingEnemies = enemies.Length;
+    public GameObject[] EnemyTankTypes;
+
+    private MapGenerator map;
+    public Room[,] grid;
+
+    void Start() {
+        map = GameObject.Find("MapGenerator").GetComponent<MapGenerator>();
+        SpawnPlayer();
+        for (int i = 0; i < EnemyTankTypes.Length; i++) {
+            int x = Random.Range(0, map.rows);
+            int z = Random.Range(0, map.cols);
+            GameObject tempEnemy = Instantiate(EnemyTankTypes[i], grid[x,z].gameObject.transform.FindChild("EnemyTankSpawner").position, Quaternion.identity) as GameObject;
+            int index = 0;//bad implementation with an array, change to a list eventually, can only use temporarily since I know there is exactly 4 waypoints
+            foreach(Transform child in grid[x,z].transform) {
+                if (child.CompareTag("Waypoint") && index < 4) {
+                    tempEnemy.GetComponent<AIController>().waypoints[index] = child;
+                    index++;
+                }
+            }
+            enemies.Add(tempEnemy);
+        }
+        remainingEnemies = enemies.Count;
     }
     void Awake() {
         if (instance == null) instance = this;
@@ -50,5 +71,11 @@ public class GameManager : MonoBehaviour {
         StatusGUI.SetActive(true);
         ContinueGUI.SetActive(true);
         done = true;
+    }
+    public void SpawnPlayer() {
+        int x = Random.Range(0, map.rows);
+        int z = Random.Range(0, map.cols);
+        GameObject playerObj = Instantiate(playerPrefab, grid[x, z].gameObject.transform.FindChild("PlayerSpawn").position, Quaternion.identity) as GameObject;
+        player = playerObj.GetComponent<TankMotor>();
     }
 }

@@ -15,7 +15,6 @@ public class TankMotor : MonoBehaviour {
         characterController = gameObject.GetComponent<CharacterController>();
         if (data != null) data = gameObject.GetComponent<TankData>();
         data.health = data.maxHealth;
-        data.moveSpeed = data.maxSpeed;
 	}
     void Update () {
 
@@ -64,7 +63,7 @@ public class TankMotor : MonoBehaviour {
                     }
                     Time.timeScale = 0;//pause game
                     gameObject.GetComponent<InputController>().enabled = false;//disable input since tank is destroyed
-                    GameManager.instance.GameOver();
+                    GameManager.instance.SpawnPlayer();
                 }else {
                     Destroy(gameObject);
                     GameManager.instance.remainingEnemies -= 1;
