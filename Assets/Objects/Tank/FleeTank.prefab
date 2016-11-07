@@ -430,6 +430,8 @@ MonoBehaviour:
   turnSpeed: 180
   bulletForce: 500
   fireRate: 2
+  lives: 3
+  maxLives: 3
   health: 100
   maxHealth: 100
   damage: 20
@@ -447,6 +449,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 197250, guid: 1bdf9bab7f42bdf4da99d9fbbfcf3d7f, type: 2}
+  fireSound: {fileID: 8300000, guid: 878a1f1fbebd4c34bbe144c720b0a384, type: 3}
+  deathSound: {fileID: 8300000, guid: 25ff9fc4d10259442a3f3812abe15857, type: 3}
+  hitSound: {fileID: 8300000, guid: c713249fa51fe644683b3c0bf5d31986, type: 3}
   data: {fileID: 11492700}
   tf: {fileID: 464594}
 --- !u!135 &13543098

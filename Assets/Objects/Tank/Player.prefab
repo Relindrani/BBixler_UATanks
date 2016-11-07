@@ -113,7 +113,6 @@ GameObject:
   - 20: {fileID: 2070384}
   - 92: {fileID: 9230024}
   - 124: {fileID: 12487302}
-  - 81: {fileID: 8103544}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -235,8 +234,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 155004}
-  m_LocalRotation: {x: 0.38268346, y: 0, z: 0, w: 0.9238795}
-  m_LocalPosition: {x: 0, y: 5, z: -5}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071067}
+  m_LocalPosition: {x: 0, y: 15, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 489764}
@@ -289,7 +288,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 0
-  orthographic size: 30
+  orthographic size: 15
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -435,13 +434,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 110948}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!81 &8103544
-AudioListener:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 155004}
-  m_Enabled: 1
 --- !u!92 &9230024
 Behaviour:
   m_ObjectHideFlags: 1
@@ -461,6 +453,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 197250, guid: 1bdf9bab7f42bdf4da99d9fbbfcf3d7f, type: 2}
+  fireSound: {fileID: 8300000, guid: 878a1f1fbebd4c34bbe144c720b0a384, type: 3}
+  deathSound: {fileID: 8300000, guid: 25ff9fc4d10259442a3f3812abe15857, type: 3}
+  hitSound: {fileID: 8300000, guid: c713249fa51fe644683b3c0bf5d31986, type: 3}
   data: {fileID: 11474632}
   tf: {fileID: 489764}
 --- !u!114 &11454152
@@ -513,6 +508,8 @@ MonoBehaviour:
   turnSpeed: 180
   bulletForce: 500
   fireRate: 2
+  lives: 3
+  maxLives: 3
   health: 100
   maxHealth: 100
   damage: 20

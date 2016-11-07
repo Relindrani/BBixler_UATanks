@@ -15,12 +15,11 @@ public class MapGenerator : MonoBehaviour {
     public GameObject[] gridPrefabs;
 
     public bool isMapOfTheDay;
-    public bool isRandom;
 
     void Start() {
+		isMapOfTheDay = PlayerPrefs.GetInt("MapOfDay") == 1 ? true : false;
         if (isMapOfTheDay) mapSeed = DateToInt(DateTime.Now.Date);//if map of the day is true, it takes priority even if isRandom is true
-        else if(isRandom) mapSeed = DateToInt(DateTime.Now);//if mapoftheday is false and israndom is true, set random seed
-        //if both are false, let the mapseed stay whatever it was set as in the editor
+        else mapSeed = DateToInt(DateTime.Now);//if mapoftheday is false, set random seed
         GenerateGrid();
     }
 	void Update () {

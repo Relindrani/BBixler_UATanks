@@ -24,17 +24,22 @@ public class InputController : MonoBehaviour {
                 else if (Input.GetKey(KeyCode.S)) motor.Move(-data.backwardsSpeed);
                 if (Input.GetKey(KeyCode.A)) motor.Rotate(-data.turnSpeed);
                 else if (Input.GetKey(KeyCode.D)) motor.Rotate(data.turnSpeed);
+				if (Input.GetKeyDown(KeyCode.Space) && Time.time>=nextFireTime) {
+					motor.Shoot(data.bulletForce);
+					nextFireTime = Time.time + data.fireRate;
+				}
                 break;
             case InputScheme.ArrowKeys:
                 if(Input.GetKey(KeyCode.UpArrow)) motor.Move(data.moveSpeed);
                 if (Input.GetKey(KeyCode.DownArrow)) motor.Move(-data.backwardsSpeed);
                 if (Input.GetKey(KeyCode.LeftArrow)) motor.Rotate(-data.turnSpeed);
                 if (Input.GetKey(KeyCode.RightArrow)) motor.Rotate(data.turnSpeed);
+				if (Input.GetKeyDown(KeyCode.Keypad0) && Time.time>=nextFireTime) {
+					motor.Shoot(data.bulletForce);
+					nextFireTime = Time.time + data.fireRate;
+				}
                 break;
         }
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time>=nextFireTime) {
-            motor.Shoot(data.bulletForce);
-            nextFireTime = Time.time + data.fireRate;
-        }
+        
     }
 }

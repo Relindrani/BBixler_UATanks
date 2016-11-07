@@ -6,6 +6,10 @@ public class TankMotor : MonoBehaviour {
     private CharacterController characterController;
     public GameObject bulletPrefab;
 
+	public AudioClip fireSound;
+	public AudioClip deathSound;
+	public AudioClip hitSound;
+
     public TankData data;
 
     public Transform tf;
@@ -44,26 +48,35 @@ public class TankMotor : MonoBehaviour {
     public void Shoot(float speed) {
         GameObject bullet;//create bullet gameobject
         bullet = Instantiate(bulletPrefab, tf.position + tf.forward * 2, Quaternion.identity) as GameObject;//instantiate bullet in the world
+		AudioSource.PlayClipAtPoint(fireSound,tf.position);
         bullet.GetComponent<BulletScript>().firedFrom = this;//define which tank motor fired the bullet
         bullet.GetComponent<Rigidbody>().AddForce(tf.forward * speed);//add force
     }
 
     void OnCollisionEnter(Collision col) {//if the tank collides with something
         if (col.collider.gameObject.tag == "Bullet") {//if it is a bullet
+			AudioSource.PlayClipAtPoint(hitSound,tf.position);
             if (col.gameObject.GetComponent<BulletScript>().firedFrom != this) {
                 data.health -= col.gameObject.GetComponent<BulletScript>().firedFrom.data.damage;//subtract this tanks health by the damage of the tank that fired the bullet, if it wasn't fired from itself
             }
             if (data.health <= 0) {
                 col.gameObject.GetComponent<BulletScript>().firedFrom.data.score += data.scoreValue;//add score when destroyed
-                if (gameObject.tag == "Player") {
-                    foreach(Transform child in transform) {
-                        if (child.name == "Visuals") {
-                            Destroy(child.gameObject);//destroy the visuals of the player tank without destroying the only camera in the scene
-                        }
-                    }
-                    Time.timeScale = 0;//pause game
-                    gameObject.GetComponent<InputController>().enabled = false;//disable input since tank is destroyed
-                    GameManager.instance.SpawnPlayer();
+				AudioSource.PlayClipAtPoint(deathSound,tf.position);
+				if (gameObject.tag == "Player") {
+					data.prevLives=data.lives;
+					data.lives--;
+					if(data.lives<=0){
+						gameObject.GetComponent<InputController>().enabled=false;
+						GameManager.instance.GameOver();
+					}
+					else{
+						GameManager.instance.RespawnPlayer();
+						GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+						foreach(GameObject e in enemies){
+							e.GetComponent<AIController>().target=GameManager.instance.player.gameObject.transform;
+						}
+						Destroy(gameObject);
+					}
                 }else {
                     Destroy(gameObject);
                     GameManager.instance.remainingEnemies -= 1;
