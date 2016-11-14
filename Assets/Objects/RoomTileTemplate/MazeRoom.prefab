@@ -1909,8 +1909,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupPrefab:
-  - {fileID: 184918, guid: e4889a4f18d8baf4f90ab550fe71df2c, type: 2}
-  - {fileID: 120638, guid: d0420d940b49b454980f6d22a8cc391a, type: 2}
+  - {fileID: 141150, guid: e4889a4f18d8baf4f90ab550fe71df2c, type: 2}
+  - {fileID: 100616, guid: d0420d940b49b454980f6d22a8cc391a, type: 2}
   - {fileID: 188602, guid: 1322097d5bea64e4291d2b3ffdf69bd9, type: 2}
   spawnDelay: 10
 --- !u!114 &11465218
