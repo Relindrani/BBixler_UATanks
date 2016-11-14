@@ -149,4 +149,18 @@ public class GameManager : MonoBehaviour {
 			SpawnPlayer();
 		}
 	}
+	public void RespawnEnemy(int personality){
+		int x = Random.Range(0, map.rows);
+		int z = Random.Range(0, map.cols);
+		GameObject tempEnemy = Instantiate(EnemyTankTypes[personality], grid[x,z].gameObject.transform.FindChild("EnemyTankSpawner").position, Quaternion.identity) as GameObject;
+		int index = 0;//bad implementation with an array, change to a list eventually, can only use temporarily since I know there is exactly 4 waypoints
+		foreach(Transform child in grid[x,z].transform) {
+			if (child.CompareTag("Waypoint") && index < 4) {
+				tempEnemy.GetComponent<AIController>().waypoints[index] = child;
+				index++;
+			}
+		}
+		enemies.Add(tempEnemy);
+		remainingEnemies++;
+	}
 }

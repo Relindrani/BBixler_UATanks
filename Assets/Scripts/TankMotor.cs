@@ -80,6 +80,7 @@ public class TankMotor : MonoBehaviour {
                 }else {
                     Destroy(gameObject);
                     GameManager.instance.remainingEnemies -= 1;
+					GameManager.instance.RespawnEnemy(gameObject.GetComponent<AIController>().GetPersonality());
                     if (GameManager.instance.remainingEnemies <= 0) {
                         Time.timeScale = 0;
                         GameObject.FindGameObjectWithTag("Player").GetComponent<InputController>().enabled = false;//disable input since you won

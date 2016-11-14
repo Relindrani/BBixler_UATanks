@@ -44,6 +44,10 @@ public class AIController : MonoBehaviour {
 
     private Transform tf;
 
+	public int GetPersonality(){
+		return personality==Personality.AllTalk?0:personality==Personality.Guard?1:personality==Personality.PatrolAvoid?2:3;
+	}
+
     void Start() {
         if (data == null) data = gameObject.GetComponent<TankData>();
         if (motor == null) motor = gameObject.GetComponent<TankMotor>();
